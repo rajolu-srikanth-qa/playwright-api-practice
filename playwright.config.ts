@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
@@ -6,7 +6,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 2,
   workers: 1,
-  reporter: 'html',
+  reporter: [['html', { open: 'never' }]],
 
   use: {
     baseURL: 'https://restful-booker.herokuapp.com',
@@ -18,6 +18,15 @@ export default defineConfig({
   projects: [
     {
       name: 'api',
+      testMatch: '**/API/**/*.spec.ts',
+    },
+    {
+      name: 'ui',
+      testMatch: '**/UI/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://automationintesting.online',
+      },
     },
   ],
 });

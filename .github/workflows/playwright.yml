@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Run API tests
-        run: npx playwright test
+        run: npx playwright test --project=api
 
       - name: Save the HTML report
         uses: actions/upload-artifact@v4
